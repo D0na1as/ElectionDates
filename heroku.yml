@@ -1,5 +1,3 @@
 build:
   docker:
     dates: Dockerfile
-run:
-  date: bundle exec puma -C config/puma.rb
