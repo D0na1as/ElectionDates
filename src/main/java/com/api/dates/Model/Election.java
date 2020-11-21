@@ -4,9 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class Election {
+public class Election  implements Comparable<Election>{
 
     @JsonProperty("id")
     private String id;
@@ -15,37 +19,42 @@ public class Election {
     @JsonProperty("rink_data")
     private String rinkData;
 
+    private DateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+
     public Election() {
     }
 
-    @JsonProperty("id")
     public String getId() {
         return id;
     }
 
-    @JsonProperty("id")
     public void setId(String id) {
         this.id = id;
     }
 
-    @JsonProperty("pav")
     public String getPav() {
         return pav;
     }
 
-    @JsonProperty("pav")
     public void setPav(String pav) {
         this.pav = pav;
     }
 
-    @JsonProperty("rink_data")
     public String getRinkData() {
         return rinkData;
     }
 
-    @JsonProperty("rink_data")
     public void setRinkData(String rinkData) {
         this.rinkData = rinkData;
     }
 
+    //For Sorting
+    @Override
+    public int compareTo(Election o) {
+        try {
+            return f.parse(this.getRinkData()).compareTo(f.parse(o.getRinkData()));
+        } catch (ParseException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
 }
