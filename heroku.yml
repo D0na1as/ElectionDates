@@ -1,3 +1,5 @@
 build:
   docker:
     dates: Docker-compose/dates/Dockerfile
+run:
+  web: java -jar Docker-compose/dates/*.jar
